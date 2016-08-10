@@ -80,6 +80,32 @@
               BackTop 回到顶部
             </menu-item>
           </sub-menu>
+            <sub-menu title="数据表格-演示">
+                <menu-item v-link="{ name: 'table1', activeClass: 'ant-menu-item-selected' }">
+                    简单表格
+                </menu-item>
+                <menu-item v-link="{ name: 'table2', activeClass: 'ant-menu-item-selected' }">
+                    表格-props传值
+                </menu-item>
+                <menu-item v-link="{ name: 'table3', activeClass: 'ant-menu-item-selected' }">
+                    表格-动态props
+                </menu-item>
+                <menu-item v-link="{ name: 'table4', activeClass: 'ant-menu-item-selected' }">
+                    表格-props验证
+                </menu-item>
+                <menu-item v-link="{ name: 'table5', activeClass: 'ant-menu-item-selected' }">
+                    表格-自定义事件
+                </menu-item>
+                <menu-item v-link="{ name: 'table6', activeClass: 'ant-menu-item-selected' }">
+                    表格-slot内容分发
+                </menu-item>
+                <menu-item v-link="{ name: 'table7', activeClass: 'ant-menu-item-selected' }">
+                    表格-客户端较完备功能
+                </menu-item>
+                <menu-item v-link="{ name: 'table8', activeClass: 'ant-menu-item-selected' }">
+                    表格-服务端加载
+                </menu-item>
+            </sub-menu>
         </v-menu>
       </div>
       <div class="main-container ant-col-xs-24 ant-col-sm-24 ant-col-md-18 ant-col-lg-20">

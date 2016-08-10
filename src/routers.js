@@ -124,6 +124,54 @@ export default function (router) {
           component: function index(resolve) {
             require(['./views/modal.vue'], resolve);
           }
+        },
+        '/table/1': {
+          name: 'table1',
+          component: function index(resolve) {
+            require(['./views/table/1.vue'], resolve);
+          },
+        },
+        '/table/2': {
+          name: 'table2',
+          component: function index(resolve) {
+            require(['./views/table/2.vue'], resolve);
+          },
+        },
+        '/table/3': {
+          name: 'table3',
+          component: function index(resolve) {
+            require(['./views/table/3.vue'], resolve);
+          },
+        },
+        '/table/4': {
+          name: 'table4',
+          component: function index(resolve) {
+            require(['./views/table/4.vue'], resolve);
+          },
+        },
+        '/table/5': {
+          name: 'table5',
+          component: function index(resolve) {
+            require(['./views/table/5.vue'], resolve);
+          },
+        },
+        '/table/6': {
+          name: 'table6',
+          component: function index(resolve) {
+            require(['./views/table/6.vue'], resolve);
+          },
+        },
+        '/table/7': {
+          name: 'table7',
+          component: function index(resolve) {
+            require(['./views/table/7.vue'], resolve);
+          },
+        },
+        '/table/8': {
+          name: 'table8',
+          component: function index(resolve) {
+            require(['./views/table/8.vue'], resolve);
+          },
         }
       }
     },

@@ -1,0 +1,9 @@
+{
+  "code":0,
+  "data":[
+    {"name":"胥庆龄","sex":"男","check":"<input type='checkbox'>","id":11}
+  ],
+  "total":11,
+  "pagesize":10,
+  "pagenum":2
+}
