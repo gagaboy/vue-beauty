@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col>
 
         <code-box
           title="基本"
@@ -29,11 +28,47 @@
           >
             <div>这是一个slot</div>
           </api-table>
+          <template slot="js">
+              export default{
+                data:function(){
+                    return {
+                      apis: [{
+                          parameter: 'type',
+                          explain: '表格类型(props,methods,events)',
+                          type: 'String',
+                          default: "props"
+                      },{
+                          parameter: 'head',
+                          explain: '表头数组,根据type字段，head的默认值也不同',
+                          type: 'Array',
+                          default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
+                      },{
+                          parameter: 'content',
+                          explain: '表格每行的内容数组 [["1","2","3","4"]...]',
+                          type: 'Array',
+                          default: '无'
+                      },{
+                          parameter: 'apis',
+                          explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
+                          type: 'Array',
+                          default: '无'
+                      },{
+                          parameter: 'title',
+                          explain: '设置表格的标题',
+                          type: 'string',
+                          default: 'API'
+                      },{
+                          parameter: 'slot::default',
+                          explain: 'title和table之间的slot',
+                          type: 'slot node',
+                          default: '无'
+                      }
+                      ]
+                    }
+                }
+              }
+          </template>
         </code-box>
-
-      </div>
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
 
         <code-box
           title="使用head和content"
@@ -45,11 +80,24 @@
             title="使用head和content"
           >
           </api-table>
+          <template slot="js">
+              export default {
+                  data: function () {
+                    return {
+                      head: ['title1','title2'],
+                      content:[
+                          ['1-1','1-2'],
+                          ['2-1','2-2'],
+                          ['3-1','3-2']
+                      ]
+                    }
+                  }
+              }
+          </template>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-Col>
+      </v-Row>
 
 
     <api-table
@@ -69,18 +117,23 @@ export default {
   data: function () {
     return {
       apis: [{
+          parameter: 'type',
+          explain: '表格类型(props,methods,events)',
+          type: 'String',
+          default: "props"
+        },{
           parameter: 'head',
-          explain: '表头数组',
+          explain: '表头数组,根据type字段，head的默认值也不同',
           type: 'Array',
-          default: "['参数','说明','类型','默认值']"
+          default: "props:['参数','说明','类型','默认值'],methods:['方法名','说明','参数'],events:['事件名','说明','参数']"
         },{
           parameter: 'content',
-          explain: '表格每行的内容数组 [["1","2","3","4"]...',
+          explain: '表格每行的内容数组 [["1","2","3","4"]...]',
           type: 'Array',
           default: '无'
         },{
           parameter: 'apis',
-          explain: '表格每行的内容数组 [{parameter,explain,type,default}],推荐用content',
+          explain: '表格每行的内容数组 [{parameter,explain,type,default}...],推荐用content',
           type: 'Array',
           default: '无'
         },{
@@ -109,6 +162,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

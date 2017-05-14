@@ -20,14 +20,92 @@
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree-select :data="treedata1" allow-clear></v-tree-select>
+          <v-tree-select :data="treedata1" :allow-clear="true"></v-tree-select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                treedata1:[
+                  {
+                    title:'parent 1',
+                    selected: true,
+                    expand: true,
+                    node:[
+                      {
+                        title:'parent 1-0',
+                        expand: true,
+                        disabled: true,
+                        node: [
+                          {
+                            title:'leaf',
+                            disableCheckbox: true
+                          },
+                          {
+                            title:'leaf',
+                          }
+                        ]
+                      },
+                      {
+                        title:'parent 1-1',
+                        node: [
+                          {
+                            title:"<span style='color:#08c'>sss</span>"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="基本"
           describe="最简单的用法，展示可勾选，可选中，禁用，默认展开等功能。"
         >
-          <v-tree-select :data="treedata2" multiple allow-clear></v-tree-select>
+          <v-tree-select :data="treedata2" :multiple="true" :allow-clear="true"></v-tree-select>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                treedata2:[
+                  {
+                    title:'parent 1',
+                    expand: true,
+                    node:[
+                      {
+                        title:'parent 1-0',
+                        expand: true,
+                        disabled: true,
+                        node: [
+                          {
+                            title:'leaf',
+                            disableCheckbox: true
+                          },
+                          {
+                            title:'leaf',
+                            checked: true,
+                          }
+                        ]
+                      },
+                      {
+                        title:'parent 1-1',
+                        node: [
+                          {
+                            title:"<span style='color:#08c'>sss</span>"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+          </template>
         </code-box>
 
       </v-Col>
@@ -51,9 +129,6 @@
 </template>
 
 <script>
-
-import {vRow, vCol} from '../../components/layout'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -84,6 +159,18 @@ export default {
           '显示清除按钮',
           'bool',
           'false'   
+        ],
+        [
+          'position',
+          '下拉框的定位方式（absolute,fixed）',
+          'string',
+          'absolute'   
+        ],
+        [
+          'popupContainer',
+          '下拉菜单渲染父节点。默认渲染到 body 上，如果你遇到菜单滚动定位问题，试试修改为滚动的区域，并相对其定位。',
+          'Function',
+          '() => document.body'   
         ],
         [
           'onSelect',
@@ -188,14 +275,8 @@ export default {
     }
   },
   components: {
-    vRow,
-    vCol,
-    vButton,
     codeBox,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

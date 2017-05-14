@@ -19,38 +19,56 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本"
           describe="最简单的用法。"
-          code="<v-back-top></v-back-top>"
         >
           向下滚动后，见右下角灰色按钮
          <v-back-top></v-back-top>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="自定义样式"
           describe="可以自定义回到顶部按钮的样式，限制宽高：40px * 40px。"
-          code="<v-back-top style='bottom: 100px;' :visibility-height='500'  :on-click='handler'>
-  <div :style='styleObject'>UP</div>
-</v-back-top>"
         >
         向下滚动后，见右下角蓝色按钮
         <v-back-top style="bottom: 100px;" :visibility-height="500"  :on-click="handler">
           <div :style="styleObject">UP</div>
         </v-back-top>
+
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  styleObject:{
+                    height: '40px',
+                    width: '40px',
+                    lineHeight: '40px',
+                    borderRadius: '4px',
+                    color: 'rgb(255, 255, 255)',
+                    textAlign: 'center',
+                    fontSize: '20px',
+                    backgroundColor: 'rgb(87, 197, 247)'
+                  }
+                }
+              },
+              methods:{
+                handler(){
+                  console.log('噢');
+                }
+              }
+            }
+          </template>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table
@@ -62,8 +80,6 @@
 </template>
 
 <script>
-
-//import vBackTop from '../../components/backTop'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -100,7 +116,6 @@ export default {
     }
   },
   components: {
-    //vBackTop,
     codeBox,
     apiTable
   }

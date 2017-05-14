@@ -15,99 +15,107 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本用法"
           describe="简单的 checkbox。"
-          code="<v-checkbox>checkbox</v-checkbox>"
         >
           <v-checkbox>checkbox</v-checkbox>
-
+          <v-checkbox :checked="checkStatus" :true-value="0" :false-value="1" :on-change="onChange">checkbox</v-checkbox>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checkStatus: 0,
+                onChange(e){
+                  console.log(e.checked)
+                  this.checkStatus = e.checked
+                },
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="和外部组件通信"
           describe="联动 checkbox。"
-          code='onChange: (e) => {
-  this.checked = e.checked
-},
-
-<v-checkbox
-  :checked="checked"
-  :disabled="disabled"
-  :on-change="onChange">
-  <span v-if="!checked">取消</span><span v-if="checked">选中</span>-
-  <span v-if="!disabled">可用</span><span v-if="disabled">不可用</span>
-</v-checkbox>
-
-<button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="this.checked = !this.checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
-<button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="this.disabled = !this.disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>'
         >
           <p style="margin-bottom: 16px;">
             <v-checkbox
               :checked="checked"
               :disabled="disabled"
-              :on-change="onChange">
+              :on-change="change">
               <span v-if="!checked">取消</span><span v-if="checked">选中</span>-
               <span v-if="!disabled">可用</span><span v-if="disabled">不可用</span>
             </v-checkbox>
           </p>
           <p>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="this.checked = !this.checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
-            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="this.disabled = !this.disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>
+            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" @click="checked = !checked"><span v-if="checked">取 消</span><span v-if="!checked">选 中</span></button>
+            <button type="button" class="ant-btn ant-btn-primary ant-btn-sm" style="margin-left: 10px;" @click="disabled = !disabled"><span v-if="disabled">可用</span><span v-if="!disabled">不可用</span></button>
           </p>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checked: false,
+                disabled: false,
+                change(e){
+                  this.checked = e.checked
+                }
+              }
+            }
+          }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="不可用"
-          describe="checkbox不可用"
-          code="<v-checkbox disabled='true'></v-checkbox>
-<v-checkbox checked='true' disabled='true'></v-checkbox>"
-        >
-          <v-checkbox disabled='true'></v-checkbox>
-          <v-checkbox checked='true' disabled='true'></v-checkbox>
+          describe="checkbox不可用">
+          <v-checkbox :disabled='true'></v-checkbox>
+          <v-checkbox :checked='true' :disabled='true'></v-checkbox>
         </code-box>
 
         <code-box
           title="Checkbox 组"
           describe="方便的从数组生成 Checkbox 组。"
-          code='defaultValue: ["Apple", "Orange"],
-options: [
-  { label: "苹果", value: "Apple" },
-  { label: "梨", value: "Pear" },
-  { label: "橘", value: "Orange" },
-],
-optionsWithDisabled: [
-{ label: "苹果", value: "Apple" },
-{ label: "梨", value: "Pear" },
-{ label: "橘", value: "Orange", disabled； true },
-],
-
-<checkbox-group :options="options"
-  :default-value.sync="defaultValue">
-</checkbox-group>
-
-<checkbox-group
-  :options="optionsWithDisabled"
-  :on-change="checkGroup">
-</checkbox-group>'
         >
-          <p style="margin-bottom: 16px;"><checkbox-group :options="options" :default-value.sync="defaultValue"></checkbox-group></p>
-          <checkbox-group
+          <p style="margin-bottom: 16px;"><v-checkbox-group :options="options" :value.sync="defaultValue"></v-checkbox-group></p>
+          <v-checkbox-group
             :options="optionsWithDisabled"
             :on-change="checkGroup">
-          </checkbox-group>
+          </v-checkbox-group>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                checkGroup: (values) => {
+                  console.log(values);
+                },
+                defaultValue: ['Apple','Orange'],
+                options: [
+                  { label: '苹果', value: 'Apple' },
+                  { label: '梨', value: 'Pear' },
+                  { label: '橘', value: 'Orange' },
+                ],
+                optionsWithDisabled: [
+                  { label: '苹果', value: 'Apple' },
+                  { label: '梨', value: 'Pear' },
+                  { label: '橘', value: 'Orange', disabled: true },
+                ]
+              }
+            }
+          }
+          </template>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table
@@ -129,16 +137,21 @@ optionsWithDisabled: [
 
 <script>
 
-import vCheckbox from '../../components/checkbox'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
     return {
+      checkStatus: 0,
       checked: false,
       disabled: false,
-      onChange: (e) => {
+      onChange(e){
+        console.log(e.checked)
+        this.checkStatus = e.checked
+      },
+      change(e){
+        console.log(e.checked)
         this.checked = e.checked
       },
       checkGroup: (values) => {
@@ -158,7 +171,7 @@ export default {
       apis: [{
           parameter: 'checked',
           explain: '指定当前是否选中',
-          type: 'boolean',
+          type: 'any',
           default: 'false'
         },{
           parameter: 'disabled',
@@ -170,10 +183,20 @@ export default {
           explain: '变化时回调函数',
           type: 'Function',
           default: '无'
+        },{
+          parameter: 'true-value',
+          explain: '选中时的值',
+          type: 'any',
+          default: 'false'
+        },{
+          parameter: 'false-value',
+          explain: '没有选中时的值',
+          type: 'any',
+          default: 'false'
         }
       ],
       apiGroup: [{
-          parameter: 'defaultValue',
+          parameter: 'value',
           explain: '默认选中的选项',
           type: 'array',
           default: '无'
@@ -193,9 +216,7 @@ export default {
   },
   components: {
     codeBox,
-    apiTable,
-    vCheckbox,
-    CheckboxGroup: vCheckbox.Group
+    apiTable
   }
 }
 </script>

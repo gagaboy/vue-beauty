@@ -3,14 +3,14 @@
   <div>
 
     <section class="markdown">
-      <h1>Button 按钮</h1>
+      <h1>Tabs 标签页</h1>
       <p>
-        按钮用于开始一个即时操作。
+          选项卡切换组件。
       </p>
       <h2>何时使用</h2>
       <ul>
         <p>
-          标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。
+            提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
         </p>
       </ul>
       <h2>组件演示</h2>
@@ -20,10 +20,10 @@
       <v-Col span="12">
 
         <code-box
-          title="图标按钮"
-          describe=""
+          title="基本"
+          describe="默认选中第一项"
         >
-          <v-tabs active-key="2">
+          <v-tabs active-key="1">
             <v-tab-pane key="1" tab="选项卡一">选项卡一内容</v-tab-pane>
             <v-tab-pane key="2" tab="选项卡二">选项卡二内容</v-tab-pane>
             <v-tab-pane key="3" tab="选项卡三">选项卡三内容</v-tab-pane>
@@ -35,22 +35,36 @@
       <v-Col span="12">
 
         <code-box
-          title="图标按钮"
-          describe=""
+          title="禁用"
+          describe="禁用某一项。"
         >
           <v-tabs active-key="1">
             <v-tab-pane key="1" tab="选项卡一">选项卡一</v-tab-pane>
-            <v-tab-pane key="2" disabled tab="选项卡二">选项卡二</v-tab-pane>
+            <v-tab-pane key="2" disabled="true" tab="选项卡二">选项卡二</v-tab-pane>
             <v-tab-pane key="3" tab="选项卡三">选项卡三</v-tab-pane>
           </v-tabs>
         </code-box>
+      </v-Col>
 
+      <v-Col span="12">
         <code-box
-          title="图标按钮"
-          describe=""
+            title="图标"
+            describe="有图标的标签。"
+        >
+            <v-tabs active-key="1">
+                <v-tab-pane key="1" tab="选项卡一" icon="apple">选项卡一内容</v-tab-pane>
+                <v-tab-pane key="2" tab="选项卡二" icon="android">选项卡二内容</v-tab-pane>
+            </v-tabs>
+        </code-box>
+      </v-Col>
+
+      <v-Col span="12">
+        <code-box
+          title="滑动"
+          describe="可以左右滑动, 容纳更多标签"
         >
           <v-tabs active-key="1">
-            <v-tab-pane key="1" tab="选项一">选项卡一</v-tab-pane>
+            <v-tab-pane key="1" tab="选项一">选项一</v-tab-pane>
             <v-tab-pane key="2" tab="选项二">选项卡二</v-tab-pane>
             <v-tab-pane key="3" tab="选项三">选项卡三</v-tab-pane>
             <v-tab-pane key="4" tab="选项四">选项卡四</v-tab-pane>
@@ -59,84 +73,98 @@
             <v-tab-pane key="7" tab="选项七">选项卡七</v-tab-pane>
             <v-tab-pane key="8" tab="选项八">选项卡八</v-tab-pane>
             <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
+            <v-tab-pane key="10" tab="选项十">选项卡十</v-tab-pane>
           </v-tabs>
         </code-box>
-        
+
+        <code-box
+          title="迷你型"
+          describe="用在弹出框等较狭窄的容器内。"
+        >
+          <v-tabs active-key="1" size="small">
+            <v-tab-pane key="1" tab="选项一">选项一</v-tab-pane>
+            <v-tab-pane key="2" tab="选项二">选项卡二</v-tab-pane>
+            <v-tab-pane key="3" tab="选项三">选项卡三</v-tab-pane>
+            <v-tab-pane key="4" tab="选项四">选项卡四</v-tab-pane>
+            <v-tab-pane key="5" tab="选项五">选项卡五</v-tab-pane>
+            <v-tab-pane key="6" tab="选项六">选项卡六</v-tab-pane>
+            <v-tab-pane key="7" tab="选项七">选项卡七</v-tab-pane>
+            <v-tab-pane key="8" tab="选项八">选项卡八</v-tab-pane>
+            <v-tab-pane key="9" tab="选项九">选项卡九</v-tab-pane>
+            <v-tab-pane key="10" tab="选项十">选项卡十</v-tab-pane>
+          </v-tabs>
+        </code-box>
       </v-Col>
     </v-Row>
 
 
-    <api-table
-      :apis='apis'
-    ></api-table>
+    <api-table :apis='apiTabs'>
+        <h3>Tabs</h3>
+    </api-table>
+
+    <api-table title='' :apis='apiTabPane'>
+      <h3>Tabs.TabPane</h3>
+    </api-table>
+
+    <api-table title="" type="events" :content='eventsApi'>
+      <h3>Tabs Events</h3>
+    </api-table>
 
   </div>
 
 </template>
 
 <script>
-import {vRow, vCol} from '../../components/layout'
-import vTabs from '../../components/tabs'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
     return {
-      apis: [{
-          parameter: 'type',
-          explain: '设置按钮类型，可选值为 primary success error warning ghost dashed 或者不设',
-          type: 'String',
-          default: '无'
-        },{
-          parameter: 'htmlType',
-          explain: '设置 button 原生的 type 值，可选值请参考 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type" target="_blank">HTML 标准<a/>',
-          type: 'string',
-          default: 'button'
-        },{
-          parameter: 'icon',
-          explain: '设置按钮的图标类型',
-          type: 'string',
-          default: '无'
-        },{
-          parameter: 'shape',
-          explain: '设置按钮形状，可选值为 circle circle-outline 或者不设',
+      apiTabs: [{
+          parameter: 'activeKey',
+          explain: '当前激活 tab 面板的 key',
           type: 'String',
           default: '无'
         },{
           parameter: 'size',
-          explain: '设置按钮大小，可选值为 small large 或者不设',
+          explain: '大小，提供 default 和 small 两种大小。',
           type: 'String',
           default: 'default'
+        }],
+        apiTabPane: [{
+            parameter: 'key',
+            explain: '对应 activeKey',
+            type: 'String',
+            default: '无'
         },{
-          parameter: 'description',
-          explain: '可选参数，警告提示的辅助性文字介绍',
-          type: 'String',
-          default: '无'
+            parameter: 'tab',
+            explain: '选项卡头显示文字	',
+            type: 'String',
+            default: '无'
         },{
-          parameter: 'loading',
-          explain: '设置按钮载入状态',
-          type: 'boolean',
-          default: 'false'
+            parameter: 'icon',
+            explain: '选项卡头文字左侧的图标',
+            type: 'String',
+            default: '无'
         },{
-          parameter: 'onClick',
-          explain: 'click 事件的 handler',
-          type: 'function',
-          default: ''
-        }
-      ]
+            parameter: 'disabled',
+            explain: '禁用',
+            type: 'Boolean',
+            default: 'false'
+        }],
+        eventsApi: [
+          [
+            'tabclick',
+            '点击菜单项时触发',
+            'function(key)'
+          ]
+        ]
     }
   },
   components: {
-    vTabs,
-    vTabPane: vTabs.TabPane,
     codeBox,
-    apiTable,
-    vRow,
-    vCol
+    apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

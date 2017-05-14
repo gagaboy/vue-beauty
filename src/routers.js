@@ -53,10 +53,10 @@ export default function(router) {
             require(['./views/font.vue'], resolve);
           },
         },
-        '/layout': {
-          name: 'layout',
+        '/grid': {
+          name: 'grid',
           component: function index(resolve) {
-            require(['./views/layout.vue'], resolve);
+            require(['./views/grid.vue'], resolve);
           },
         },
         '/button': {
@@ -239,6 +239,12 @@ export default function(router) {
             require(['./views/breadcrumb.vue'], resolve);
           }
         },
+        '/dropdown': {
+          name: 'dropdown',
+          component: function index(resolve) {
+            require(['./views/dropdown.vue'], resolve);
+          }
+        },
         '/menu': {
           name: 'menu',
           component: function index(resolve) {
@@ -293,10 +299,40 @@ export default function(router) {
             require(['./views/datepicker.vue'], resolve);
           }
         },
+        '/morePanel': {
+          name: 'morePanel',
+          component: function index(resolve) {
+            require(['./views/morePanel.vue'], resolve);
+          }
+        },
         '/css': {
           name: 'css',
           component: function index(resolve) {
             require(['./views/css.vue'], resolve);
+          }
+        },
+        '/start': {
+          name: 'start',
+          component: function index(resolve) {
+            require(['./views/start.vue'], resolve);
+          }
+        },
+        '/contribute': {
+          name: 'contribute',
+          component: function index(resolve) {
+            require(['./views/contribute.vue'], resolve);
+          }
+        },
+        '/polyfill': {
+          name: 'polyfill',
+          component: function index(resolve) {
+            require(['./views/polyfill.vue'], resolve);
+          }
+        },
+        '/layout': {
+          name: 'layout',
+          component: function index(resolve) {
+            require(['./views/layout.vue'], resolve);
           }
         }
       }
@@ -309,13 +345,6 @@ export default function(router) {
     }
   });
   router.redirect({
-    '/': '/components/css'
+    '/': '/components/start'
   });
-
-  router.afterEach(function ({from, to}) {
-    setTimeout(()=> {
-      hljs.initHighlighting();
-    })
-  });
-
 }

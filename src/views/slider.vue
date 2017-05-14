@@ -16,9 +16,8 @@
             <h2>组件演示</h2>
         </section>
 
-        <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <v-Row :gutter="16">
+            <v-Col span="12">
 
                 <code-box
                         title="基本"
@@ -26,12 +25,11 @@
                 >
                     <v-slider :default-value="30"></v-slider>
                     <v-slider :range="true" :default-value="[20, 50]"></v-slider>
-                    <v-slider :range="true" :default-value="[20, 50]" disabled></v-slider>
+                    <v-slider :range="true" :default-value="[20, 50]" :disabled="true"></v-slider>
                 </code-box>
 
-            </div>
-
-        </div>
+            </v-col>
+        </v-row>
 
 
         <api-table
@@ -43,9 +41,6 @@
 </template>
 
 <script>
-
-    import vSlider from '../../components/slider'
-    import vButton from '../../components/button'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
 
@@ -118,13 +113,8 @@
             }
         },
         components: {
-            vSlider,
-            vButton,
             codeBox,
             apiTable
         }
     }
 </script>
-
-<style lang="less">
-</style>

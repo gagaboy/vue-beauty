@@ -15,70 +15,65 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="折叠面板"
           describe="可以同时展开多个面板，这个例子默认展开了第一个。"
-          code=""
         >
           <v-collapse default-active-key='1'>
-            <v-panel header="This is panel header 1" key="1">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
         <code-box
           title="多选"
           describe="默认同时展开多个面板"
-          code="<v-collapse :active-key='[1,2]'>"
         >
           <v-collapse :active-key="['1','2']">
-            <v-panel header="This is panel header 1" key="1">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="手风琴"
           describe="手风琴，每次只打开一个tab。默认打开第一个。"
-          code=""
         >
-          <v-collapse default-active-key='1' accordion>
-            <v-panel header="This is panel header 1" key="1">
+          <v-collapse default-active-key='1' :accordion="true">
+            <v-collapse-item header="This is panel header 1" key="1">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 2" key="2">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 2" key="2">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
-            <v-panel header="This is panel header 3" key="3">
+            </v-collapse-item>
+            <v-collapse-item header="This is panel header 3" key="3">
               A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-            </v-panel>
+            </v-collapse-item>
           </v-collapse>
         </code-box>
 
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'
@@ -90,8 +85,6 @@
 
 <script>
 
-import vCollapse from '../../components/collapse/collapse'
-import vPanel from '../../components/collapse/panel'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -126,36 +119,7 @@ export default {
   },
   components: {
     codeBox,
-    apiTable,
-    vCollapse,
-    vPanel
+    apiTable
   }
 }
 </script>
-
-<style lang="less">
-
-.head-example{
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
-  background: #eee;
-  display: inline-block;
-}
-
-.anticon-notification {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    font-size: 16px;
-}
-
-.ant-badge {
-    margin-right: 16px;
-}
-
-.custom-card {
-    padding: 10px 16px;
-}
-
-</style>

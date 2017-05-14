@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col>
 
         <code-box
           title="基本"
@@ -45,9 +44,60 @@
           </code-box>
         </code-box>
 
-      </div>
+        <code-box
+          title="code"
+          describe="js和css"
+        >
+          <code-box
+            title="基本"
+            describe="button基本用法"
+          >
+            <template slot="css">
+              #components-form-demo-normal-login .login-form {
+                max-width: 300px;
+              }
+              #components-form-demo-normal-login .login-form-forgot {
+                float: right;
+              }
+            </template>
+            <v-button>Default</v-button>
+            <v-button>Default</v-button>
+            <div>
+              <div>
+                123123
+              </div>
+              <div>
+                <div>
+                  343fcdfc
+                </div>
+              </div>
+            </div>
+            <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  content: [
+                    aaa: {
+                      aaa:{
+                        asdasd
+                      }
+                    }
+                    [
+                      'title',
+                      '标题',
+                      'string',
+                      '无'
+                    ]
+                  ]
+                }
+              }
+            }
+            </template>
+          </code-box>
+        </code-box>
 
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table
@@ -60,7 +110,6 @@
 
 <script>
 import codeBox from '../components/codeBox'
-import vButton from '../../components/button'
 import apiTable from '../components/apiTable'
 
 export default {
@@ -80,27 +129,35 @@ export default {
           '无'
         ],
         [
-          'slot::default',
+          'code',
+          '组件的HTML示例代码，如果没有将直接使用slot::default的内容',
+          'string',
+          '无'
+        ],
+        [
+          'slot:default',
           '组件的插槽，用于演示',
           'slot node',
           '无'
         ],
         [
-          'code',
-          '组件的示例代码，如果没有将直接使用slot::default的内容',
-          'string',
+          'slot:js',
+          '组件的JS示例代码',
+          'slot node',
           '无'
         ],
+        [
+          'slot:css',
+          '组件的CSS示例代码',
+          'slot node',
+          '无'
+        ]
       ]
     }
   },
   components: {
     codeBox,
-    vButton,
     apiTable
   }
 }
 </script>
-
-<style lang="less">
-</style>

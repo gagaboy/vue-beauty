@@ -17,80 +17,77 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本"
           describe="最简单的用法，4.5 秒后自动关闭。"
-          code='openNotification() {
-  notification.open({
-    message: "这是标题",
-    description: "这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案",
-  });
-},
-
-<button type="button" class="ant-btn ant-btn-primary" @click="openNotification"><span>打开通知提醒框</span></button>'
         >
 
           <button type="button" class="ant-btn ant-btn-primary" @click="openNotification"><span>打开通知提醒框</span></button>
+          <template slot="js">
+          export default {
+            methods: {
+              openNotification() {
+                this.$notification.open({
+                  message: '这是标题',
+                  description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
+                });
+              }
+            }
+          }
+          </template>
 
         </code-box>
 
         <code-box
           title="带有Icon的通知提醒框"
           describe="通知提醒框左侧有图标。"
-          code='openNotificationWithIcon(type) {
-  notification[type]({
-    message: "这是标题",
-    description: "这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案"
-  });
-}
-
-<button type="button" class="ant-btn" @click="openNotificationWithIcon("success")"><span>成 功</span></button>
-<button type="button" class="ant-btn" @click="openNotificationWithIcon("info")"><span>消 息</span></button>
-<button type="button" class="ant-btn" @click="openNotificationWithIcon("warning")"><span>警 告</span></button>
-<button type="button" class="ant-btn" @click="openNotificationWithIcon("error")"><span>错 误</span></button>
-'
         >
           <button type="button" class="ant-btn" @click="openNotificationWithIcon('success')"><span>成 功</span></button>
           <button type="button" class="ant-btn" @click="openNotificationWithIcon('info')"><span>消 息</span></button>
           <button type="button" class="ant-btn" @click="openNotificationWithIcon('warning')"><span>警 告</span></button>
           <button type="button" class="ant-btn" @click="openNotificationWithIcon('error')"><span>错 误</span></button>
-
+          <template slot="js">
+          export default {
+            methods: {
+              openNotificationWithIcon(type) {
+                this.$notification[type]({
+                  message: '这是标题',
+                  description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
+                });
+              }
+            }
+          }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="自动关闭的延时"
           describe="自定义通知框自动关闭的延时，默认4.5s，取消自动关闭只要将该值设为 0 即可。"
-          code='openNotification() {
-  notification.open({
-    message: "这是标题",
-    description: "我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭",
-    duration: 0,
-  });
-}
-
-<button type="button" class="ant-btn ant-btn-primary" @click="openNotification2"><span>打开通知提醒框</span></button>'
         >
           <button type="button" class="ant-btn ant-btn-primary" @click="openNotificationInfinite"><span>打开通知提醒框</span></button>
+          <template slot="js">
+          export default {
+            methods: {
+              openNotificationInfinite() {
+                this.$notification.open({
+                  message: '这是标题',
+                  description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
+                  duration: 0,
+                });
+              }
+            }
+          }
+          </template>
         </code-box>
 
-        <!-- <code-box
-          title="自定义"
-          describe="自定义关闭按钮的样式和文字。"
-          code=""
-        >
-          <button type="button" class="ant-btn ant-btn-primary"><span>打开通知提醒框</span></button>
-        </code-box> -->
-
-      </div>
-
-    </div>
+      </v-col>
+    </v-row>
 
 
 
@@ -130,7 +127,6 @@
 
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-import notification from '../../components/notification'
 
 export default {
   data: function () {
@@ -168,20 +164,20 @@ export default {
   },
   methods: {
     openNotification() {
-      notification.open({
+      this.$notification.open({
         message: '这是标题',
         description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案',
       });
     },
     openNotificationInfinite() {
-      notification.open({
+      this.$notification.open({
         message: '这是标题',
         description: '我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭，我不会自动关闭',
         duration: 0,
       });
     },
     openNotificationWithIcon(type) {
-      notification[type]({
+      this.$notification[type]({
         message: '这是标题',
         description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
       });
@@ -193,9 +189,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-
-
-
-</style>

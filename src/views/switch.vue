@@ -19,33 +19,29 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="简单"
           describe="最简单的用法。"
-          code="<v-switch :on-change='_change'></v-switch>"
         >
           <v-switch :on-change="_change"></v-switch>
+          <v-switch :checked="0" :true-value="0" :false-value="1" :on-change="_change"></v-switch>
+          <template slot="js">
+          export default {
+            methods:{
+              _change(val){
+                console.log('current value:'+val)
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="文字和图标"
           describe="带有文字和图标。"
-          code="<v-switch>
-  <span slot='checkedChildren'>开</span>
-  <span slot='unCheckedChildren'>关</span>
-</v-switch>
-<v-switch>
-  <span slot='checkedChildren'>
-    <i class='anticon anticon-check'></i>
-  </span>
-  <span slot='unCheckedChildren'>
-    <i class='anticon anticon-cross'></i>
-  </span>
-</v-switch>"
         >
           <v-switch>
             <span slot="checkedChildren">开</span>
@@ -62,35 +58,39 @@
             </span>
           </v-switch>
         </code-box>
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="不可用"
           describe="Switch 失效状态。"
-          code="<v-switch disabled></v-switch>
-<v-button type='primary' @click='_toogle'>Toggle disabled</v-button>"
         >
           <v-switch :disabled="disabled"></v-switch>
           <br>
           <br>
           <v-button type="primary" @click="_toogle">Toggle disabled</v-button>
+          <template slot="js">
+          export default {
+            methods:{
+              _toogle(){
+                this.disabled = !this.disabled
+              }
+            }
+          }
+          </template>
         </code-box>
 
         <code-box
           title="两种大小"
           describe="size='small' 表示小号开关。"
-          code="<v-switch></v-switch>
-<v-switch size='small'></v-switch>"
         >
           <v-switch></v-switch>
           <br>
           <v-switch size="small"></v-switch>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
 
     <api-table
@@ -102,9 +102,6 @@
 </template>
 
 <script>
-
-import vSwitch from '../../components/switch'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -114,7 +111,7 @@ export default {
       apis: [{
           parameter: 'checked',
           explain: '指定当前是否选中',
-          type: 'boolean',
+          type: 'any',
           default: 'false'
         },{
           parameter: 'disabeled',
@@ -141,25 +138,32 @@ export default {
           explain: '开关大小（"default" or "small"）',
           type: 'string',
           default: 'default'
+        },{
+          parameter: 'true-value',
+          explain: '选中时的值',
+          type: 'any',
+          default: 'false'
+        },{
+          parameter: 'false-value',
+          explain: '没有选中时的值',
+          type: 'any',
+          default: 'false'
         }
       ],
       disabled: true
     }
   },
   components: {
-    vSwitch,
-    vButton,
     codeBox,
     apiTable
   },
   methods:{
-    _change:val=> console.log('current value:'+val),
+    _change(val){
+      console.log('current value:'+val)
+    },
     _toogle(){
       this.disabled = !this.disabled
     }
   }
 }
 </script>
-
-<style lang="less">
-</style>

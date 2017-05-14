@@ -15,80 +15,87 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="普通提示"
           describe="信息提醒反馈。"
-          code='openMessage() {
-  message.info("这是一条普通的提醒");
-},
-
-<button type="button" class="ant-btn ant-btn-primary" @click="openMessage"><span>显示普通提醒</span></button>'
         >
-
           <button type="button" class="ant-btn ant-btn-primary" @click="openMessage"><span>显示普通提醒</span></button>
-
+          <template slot="js">
+            export default {
+              methods: {
+                openMessage() {
+                  this.$message.info("这是一条普通的提醒");
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
           title="修改延时"
           describe="自定义时长 10s，默认时长为 1.5s"
-          code='time(){
-  message.success("这是一条成功的提示,并将于10秒后消失", 10);
-},
-
-<button type="button" class="ant-btn" @click="time"><span>自定义时长提示</span></button>'
         >
           <button type="button" class="ant-btn" @click="time"><span>自定义时长提示</span></button>
-
+          <template slot="js">
+            export default {
+              methods: {
+                time(){
+                  this.$message.success("这是一条成功的提示,并将于10秒后消失", 10);
+                }
+              }
+            }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="其他提示类型"
           describe="包括成功、失败、警告。"
-          code='success() {
-  message.success("这是一条成功提示");
-},
-error() {
-  message.error("这是一条失败提示");
-},
-warning() {
-  message.warning("这是一条警告提示");
-},
-
-<button type="button" class="ant-btn" @click="success("success")"><span>显示成功信息</span></button>
-<button type="button" class="ant-btn" @click="error("error")"><span>显示失败信息</span></button>
-<button type="button" class="ant-btn" @click="warning("warning")"><span>显示警告信息</span></button>'
         >
-          <button type="button" class="ant-btn" @click="success('success')"><span>显示成功信息</span></button>
-          <button type="button" class="ant-btn" @click="error('error')"><span>显示失败信息</span></button>
-          <button type="button" class="ant-btn" @click="warning('warning')"><span>显示警告信息</span></button>
+          <button type="button" class="ant-btn" @click="success()"><span>显示成功信息</span></button>
+          <button type="button" class="ant-btn" @click="error()"><span>显示失败信息</span></button>
+          <button type="button" class="ant-btn" @click="warning()"><span>显示警告信息</span></button>
+          <template slot="js">
+            export default {
+              methods: {
+                success() {
+                  this.$message.success("这是一条成功提示");
+                },
+                error() {
+                  this.$message.error("这是一条失败提示");
+                },
+                warning() {
+                  this.$message.warning("这是一条警告提示");
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
           title="加载中"
           describe="进行全局 loading，异步自行移除。"
-          code='loading() {
-  const instance = message.loading("正在执行中...", 0);
-  setTimeout(instance.remove, 2500);
-},
-
-<button type="button" class="ant-btn" @click="loading"><span>显示加载中...</span></button>'
         >
           <button type="button" class="ant-btn" @click="loading"><span>显示加载中...</span></button>
+          <template slot="js">
+            export default {
+              methods: {
+                loading() {
+                  const instance = this.$message.loading("正在执行中...", 0);
+                  setTimeout(instance.remove, 2500);
+                }
+              }
+            }
+          </template>
         </code-box>
 
-      </div>
-
-    </div>
-
-
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'
@@ -123,10 +130,8 @@ warning() {
 </template>
 
 <script>
-
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-import message from '../../components/message'
 
 export default {
   data: function () {
@@ -159,29 +164,23 @@ export default {
   },
   methods: {
     openMessage() {
-      message.info("这是一条普通的提醒");
+      this.$message.info("这是一条普通的提醒");
     },
     success() {
-      message.success("这是一条成功提示");
+      this.$message.success("这是一条成功提示");
     },
     error() {
-      message.error("这是一条失败提示");
+      this.$message.error("这是一条失败提示");
     },
     warning() {
-      message.warning("这是一条警告提示");
+      this.$message.warning("这是一条警告提示");
     },
     time(){
-      message.success("这是一条成功的提示,并将于10秒后消失", 10);
+      this.$message.success("这是一条成功的提示,并将于10秒后消失", 10);
     },
     loading() {
-      const instance = message.loading("正在执行中...", 0);
+      const instance = this.$message.loading("正在执行中...", 0);
       setTimeout(instance.remove, 2500);
-    },
-    openNotificationWithIcon(type) {
-      notification[type]({
-        message: '这是标题',
-        description: '这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案这是提示框的文案'
-      });
     }
   },
   components: {
@@ -190,9 +189,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-
-
-
-</style>

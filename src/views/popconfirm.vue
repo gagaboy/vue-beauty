@@ -18,6 +18,18 @@
                 <v-popconfirm  title="确定删除吗?" :on-confirm="confirm" :on-cancel="cancel">
                     <a href="javascript:;">删除</a>
                 </v-popconfirm>
+                <template slot="js">
+                    export default{
+                        methods: {
+                            confirm: function(){
+                                this.$message.info('点击了确定');
+                            },
+                            cancel: function(){
+                                this.$message.info('点击了取消');
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
 
@@ -42,6 +54,27 @@
                     <span slot="checkedChildren">是</span>
                     <span slot="unCheckedChildren">否</span>
                 </v-switch>
+                <template slot="js">
+                    export default{
+                        data:function(){
+                            return {
+                                is_skip: false,
+                                default_is_skip: false
+                            }
+                        },
+                        methods: {
+                            confirm: function(){
+                                this.$message.info('点击了确定');
+                            },
+                            cancel: function(){
+                                this.$message.info('点击了取消');
+                            },
+                            to_skip_confirm: function (val) {
+                                this.is_skip = val;
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
     </v-row>
@@ -50,10 +83,6 @@
 </template>
 
 <script>
-import vPopconfirm from '../../components/popconfirm';
-import vSwitch from '../../components/switch';
-import message from '../../components/message';
-import {vRow, vCol} from '../../components/layout'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -98,23 +127,18 @@ export  default {
     },
     methods: {
         confirm: function(){
-            message.info('点击了确定');
+            this.$message.info('点击了确定');
         },
         cancel: function(){
-            message.info('点击了取消');
+            this.$message.info('点击了取消');
         },
         to_skip_confirm: function (val) {
             this.is_skip = val;
         }
     },
     components: {
-        vRow,
-        vCol,
         codeBox,
-        apiTable,
-        vPopconfirm,
-        vSwitch,
-        message
+        apiTable
     }
 }
 </script>

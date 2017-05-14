@@ -19,33 +19,38 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基本使用"
           describe="基本使用。"
-          code="<v-input placeholder='基本使用'></v-input>"
         >
           <v-input placeholder="基本使用" @blur="blur"></v-input>
+          <template slot="js">
+          export default {
+            methods: {
+              blur(val){
+                console.log(val)
+              }
+            }
+          }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
         <code-box
-        title="前后缀修饰添加"
+          title="文本域"
+          describe="用于多行输入，指定 type 为一个特殊的 textarea。"
+        >
+         <v-input type="textarea" value="这是一个textarea"></v-input>
+        </code-box>
+
+      </v-col>
+      <v-Col span="12">
+        <code-box
+          title="前后缀修饰添加"
           describe="带有前缀后缀修饰"
-          code='
-          <v-input placeholder="基本使用">
-            <span slot="before">http://</span>
-            <span slot="after">.com</span>
-          </v-input>
-          <v-input placeholder="基本使用">
-            <v-Select placeholder="请选择" style="width: 80px;" slot="before" :options="options" :value.sync="value"></v-Select>
-            <v-Select style="width: 80px;" slot="after" :options="options2" :value.sync="value"></v-Select>
-          </v-input>'>
+          >
           <v-input placeholder="基本使用">
             <span slot="before">http://</span>
             <span slot="after">.com</span>
@@ -55,42 +60,30 @@
             <v-Select placeholder="请选择" style="width: 80px;" slot="before" :options="options" :value.sync="value"></v-Select>
             <v-Select style="width: 80px;" slot="after" :options="options2" :value.sync="value"></v-Select>
           </v-input>
-
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                options: [{value: '1', text: 'lady'}, {value: '2', text: '小强', disabled: true}, {value: '3', text: '小明'}],
+                options2: [{value: '1', text: 'lady'}, {value: '2', text: '小强'}, {value: '3', text: '小明'}],
+                value: '3'
+              }
+            }
+          }
+          </template>
         </code-box>
-      </div>
-
-    </div>
-
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
-        <code-box
-          title="文本域"
-          describe="用于多行输入，指定 type 为一个特殊的 textarea。"
-          code="<v-input type='textarea'></v-input>"
-        >
-         <v-input type="textarea" value="这是一个textarea"></v-input>
-        </code-box>
-
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
 
         <code-box
           title="三种大小"
-          describe="我们为 <Input /> 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。"
-          code="<v-input size='large' placeholder='大尺寸' style='width:200px;display:inline-block' disabled></v-input>
-<v-input placeholder='基本尺寸' style='width:200px;display:inline-block'></v-input>
-<v-input size='small' placeholder='小尺寸' style='width:200px;display:inline-block'></v-input>"
+          describe="我们为 &lt; v-input &gt; 输入框定义了三种尺寸（大、默认、小），高度分别为 32px、28px 和 22px。"
         >
           <v-input size="large" placeholder="大尺寸" style="width:200px;display:inline-block" disabled></v-input>
           <v-input placeholder="基本尺寸" style="width:200px;display:inline-block"></v-input>
           <br/><br/>
           <v-input size="small" placeholder="小尺寸" style="width:200px;display:inline-block"></v-input>
         </code-box>
-
-      </div>
-    </div>
-
+      </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'
@@ -168,6 +161,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>

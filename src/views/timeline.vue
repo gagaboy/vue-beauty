@@ -14,8 +14,8 @@
             </ul>
         </section>
 
-        <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <v-Row :gutter="16">
+            <v-Col span="12">
 
                 <code-box
                     title="基本用法"
@@ -40,9 +40,8 @@
                     </v-timeline>
                 </code-box>
 
-            </div>
-
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+            </v-col>
+            <v-Col span="12">
 
                 <code-box
                     title="圆圈颜色"
@@ -80,45 +79,21 @@
                     </v-timeline>
                 </code-box>
 
-            </div>
+            </v-col>
+        </v-row>
 
-        </div>
 
+        <api-table title="Timeline API" :content='content'></api-table>
 
-        <api-table
-            :content='content'
-        >
-      <pre>
-          <code class="html">
-            &lt;v-timeline&gt;
-              &lt;v-timeline-item&gt;创建服务现场 2015-09-01&lt;/v-timeline-item&gt;
-              &lt;v-timeline-item&gt;初步排除网络异常 2015-09-01&lt;/v-timeline-item&gt;
-            &lt;/v-timeline&gt;
-          </code>
-        </pre>
-
-            <h3>Timeline</h3>
-        </api-table>
-
-        <api-table
-            :content='itemcontent'
-        >
-            <h3>TimelineItem</h3>
-        </api-table>
-
+        <api-table title="TimelineItem API" :content='itemcontent'></api-table>
 
     </div>
 
 </template>
 
 <script lang="babel">
-    import vTimeline from '../../components/timeline'
-    import vIcon from '../../components/iconfont'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-
-    const vTimelineItem = vTimeline.Item
-
 
     export default {
         data: function () {
@@ -147,15 +122,9 @@
                 ]
             }
         },
-        methods: {},
         components: {
-            vTimeline,
-            vTimelineItem,
             codeBox,
             apiTable
         }
     }
 </script>
-
-<style lang="less">
-</style>

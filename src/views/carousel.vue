@@ -13,12 +13,11 @@
             </ul>
             <h2>组件演示</h2>
         </section>
-        <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <v-Row :gutter="16">
+            <v-Col span="12">
                 <code-box
                     title="基本"
                     describe="最典型的用法"
-                    code=""
                 >
                     <v-carousel :after-change="onChange">
                         <div><h3>1</h3></div>
@@ -26,12 +25,33 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="js">
+                    export default {
+                        data: function() {
+                            return {
+                                onClose: function() {
+                                    console.log(this);
+                                }
+                            }
+                        }
+                    }
+                    </template>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
 
                 <code-box
                     title="渐显"
                     describe="切换效果为渐显"
-                    code=""
                 >
                     <v-carousel :fade="true">
                         <div><h3>1</h3></div>
@@ -39,13 +59,23 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
-            </div>
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+            </v-col>
+            <v-Col span="12">
                 <code-box
                     title="垂直"
                     describe="垂直显示"
-                    code=""
                     id="components-carousel-demo-vertical"
                 >
                     <v-carousel :vertical="true">
@@ -54,12 +84,25 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    #components-carousel-demo-vertical .ant-carousel {
+                        margin-right: 35px;
+                    }
+                    </template>
                 </code-box>
 
                 <code-box
                     title="自动切换"
                     describe="自动切换下一张"
-                    code=""
                 >
                     <v-carousel :autoplay="true">
                         <div><h3>1</h3></div>
@@ -67,23 +110,31 @@
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </v-carousel>
+                    <template slot="css">
+                    .ant-carousel .slick-slide h3{
+                        text-align: center;
+                        height: 100px;
+                        line-height: 100px;
+                        background: #71B5DE;
+                        color: #fff;
+                        overflow: hidden;
+                        margin: 0;
+                    }
+                    </template>
                 </code-box>
-            </div>
-        </div>
+            </v-col>
+        </v-row>
         <api-table
             :apis='apis'
         ></api-table>
     </div>
 </template>
 <script>
-  import vCarousel from '../../components/carousel'
   import codeBox from '../components/codeBox'
   import apiTable from '../components/apiTable'
-  import message from '../../components/message'
 
   export default {
      components: {
-         vCarousel,
          codeBox,
          apiTable
      },
@@ -133,15 +184,12 @@
       },
       methods: {
           onChange (current) {
-              message.info(current);
+              this.$message.info(current);
           }
       }
   }
 </script>
 <style>
-    body{
-        background-color:#fff;
-    }
     .ant-carousel .slick-slide h3{
         text-align: center;
         height: 100px;

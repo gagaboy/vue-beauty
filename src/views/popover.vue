@@ -66,6 +66,21 @@
                     </div>
                     <button class="ant-btn ant-btn-primary" slot="trigger">click</button>
                 </v-popover>
+                <template slot="js">
+                    export default{
+                        data :function{
+                            outer_control_visible :true
+                        },
+                        method:{
+                            clickClose: function(){
+                                this.outer_control_visible = false;
+                            },
+                            outerVisibleChange: function (val) {
+                                this.outer_control_visible = val;
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
     </v-row>
@@ -81,6 +96,19 @@
                     <span slot="checkedChildren">是</span>
                     <span slot="unCheckedChildren">否</span>
                 </v-switch>
+                <template slot="js">
+                    export default{
+                        data :function{
+                            default_is_disabled :false,
+                            popover_is_disabled: false
+                        },
+                        method:{
+                            to_disabled: function (val) {
+                                this.popover_is_disabled = val;
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
         <v-col span="12">
@@ -88,6 +116,15 @@
                 <v-popover placement="top" title="标题" content="看见我了吗" :on-visible-change="visibleChange">
                     <button class="ant-btn ant-btn-primary" slot="trigger">点击弹出</button>
                 </v-popover>
+                <template slot="js">
+                    export default{
+                        method:{
+                            visibleChange: function (val) {
+                                this.$message.info(val ? '卡片显示了' : '卡片隐藏了');
+                            }
+                        }
+                    }
+                </template>
             </code-box>
         </v-col>
     </v-row>
@@ -122,10 +159,6 @@
 </template>
 
 <script>
-import {vRow, vCol} from '../../components/layout'
-import vSwitch from '../../components/switch'
-import message from '../../components/message'
-import vPopover from '../../components/popover'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
@@ -190,13 +223,8 @@ export  default {
         }
     },
     components: {
-        vRow,
-        vCol,
         codeBox,
-        apiTable,
-        vPopover,
-        vSwitch,
-        message
+        apiTable
     },
     methods: {
         clickClose: function(){
@@ -209,11 +237,8 @@ export  default {
             this.outer_control_visible = val;
         },
         visibleChange: function (val) {
-            message.info(val ? '卡片显示了' : '卡片隐藏了');
+            this.$message.info(val ? '卡片显示了' : '卡片隐藏了');
         }
     }
 }
-
-
-
 </script>

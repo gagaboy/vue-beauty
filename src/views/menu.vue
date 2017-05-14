@@ -24,7 +24,7 @@
         >
           <v-menu mode="horizontal">
             <v-menu-item><v-icon type='mail'></v-icon>导航一</v-menu-item>
-            <v-menu-item disabled><v-icon type='appstore'></v-icon>导航二</v-menu-item>
+            <v-menu-item :disabled="true"><v-icon type='appstore'></v-icon>导航二</v-menu-item>
             <v-sub-menu title="导航 - 子菜单" icon="setting">
               <v-menu-item-group title="分组1">
                 <v-menu-item>选项1</v-menu-item>
@@ -63,7 +63,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled>
+            <v-sub-menu title="导航三" icon="setting" :disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -96,7 +96,7 @@
                 <v-menu-item>选项8</v-menu-item>
               </v-sub-menu>
             </v-sub-menu>
-            <v-sub-menu title="导航三" icon="setting" disabled>
+            <v-sub-menu title="导航三" icon="setting" :disabled="true">
               <v-menu-item>选项9</v-menu-item>
               <v-menu-item>选项10</v-menu-item>
               <v-menu-item>选项11</v-menu-item>
@@ -139,8 +139,75 @@
                 title="从数据直接生成"
                 describe="使用data从json数据直接生成menu"
         >
-          <v-nav-menu style="width:240px" :data="menuData"></v-nav-menu>
-
+          <v-nav-menu style="width:240px" :data="menuData" @itemclick="itemclick"></v-nav-menu>
+          <template slot="js">
+            export default {
+              data: function () {
+                return {
+                  menuData:[
+                    {
+                      name: "首页",
+                      icon: 'home',
+                      selected: true,
+                      link: {
+                        name: 'card'
+                      }
+                    },
+                    {
+                      name: "安装指南",
+                      icon: 'mail',
+                      children: [
+                        {
+                          link: {
+                            name: 'menu',
+                            query:{
+                              src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
+                              }
+                          },
+                          name: "快速上手"
+                        },
+                        {
+                          link: "/development",
+                          name: "开发指南",
+                          disabled: true
+                        }
+                      ]
+                    },
+                    {
+                      name: "基础组件",
+                      icon: 'folder',
+                      disabled: true,
+                      groups: [
+                        {
+                          groupName: "Basic",
+                          list: [
+                            {
+                              link: "/layout",
+                              name: "布局 (layout)"
+                            }
+                          ]
+                        },
+                        {
+                          groupName: "Form",
+                          list: [
+                            {
+                              link: "/radio",
+                              name: "按钮 (radio)"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              methods: {
+                itemclick(data){
+                  console.log(data)
+                }
+              }
+            }
+          </template>
         </code-box>
 
       </v-Col>
@@ -179,6 +246,13 @@
     >
       <h3>NavMenu props</h3>
     </api-table>
+    <api-table
+      title=""
+      type="methods"
+      :content='methodsCont'
+    >
+      <h3>NavMenu methods</h3>
+    </api-table>
   </div>
 
 </template>
@@ -187,7 +261,6 @@
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
-
 export default {
   data: function () {
     return {
@@ -195,6 +268,7 @@ export default {
         {
           name: "首页",
           icon: 'home',
+          selected: true,
           link: {
             name: 'card'
           }
@@ -204,7 +278,7 @@ export default {
           icon: 'mail',
           children: [{
             link: {
-              name: 'alert',
+              name: 'menu',
               query:{
                 src: 'http://test.api.g7s.chinawayltd.com/iframe.html#apilog/index.html'
               }
@@ -225,8 +299,8 @@ export default {
               groupName: "Basic",
               list: [
                 {
-                  link: "/layout",
-                  name: "布局 (layout)"
+                  link: "/grid",
+                  name: "栅格 (grid)"
                 }
               ]
             },
@@ -254,6 +328,12 @@ export default {
           '菜单类型，现在支持垂直、水平、和内嵌模式三种',
           'String: vertical horizontal inline',
           'vertical'
+        ],
+        [
+          'expand',
+          '定义下面所有子菜单的是否展开',
+          'Boolean',
+          'false'
         ]
       ],
       content2: [
@@ -268,6 +348,12 @@ export default {
           '图标',
           'String',
           '无'
+        ],
+        [
+          'selected',
+          '选中效果',
+          'Boolean',
+          'false'
         ]
       ],
       content3: [
@@ -288,6 +374,12 @@ export default {
           '图标',
           'String',
           '无'
+        ],
+        [
+          'expand',
+          '菜单是否展开',
+          'Boolean',
+          'false'
         ]
       ],
       content4: [
@@ -323,7 +415,20 @@ export default {
             'String: vertical horizontal inline',
             'vertical'
           ]
+      ],
+      methodsCont: [
+        [
+          'setCheck',
+          '根据条件对象筛选节点，并设置节点的选中状态',
+          'conditions: Object,status: Boolean = true',
+          'isSuccess: Boolean'
+        ]
       ]
+    }
+  },
+  methods: {
+    itemclick(data){
+      console.log(data)
     }
   },
   components: {

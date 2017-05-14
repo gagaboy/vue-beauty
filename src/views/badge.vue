@@ -16,45 +16,63 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="基础"
           describe="简单的徽章展示。"
-          code='<v-badge :count="5"><a href="#" class="head-example"></a></v-badge>'
         >
           <v-badge :count="5">
             <a class="head-example"></a>
           </v-badge>
+          <template slot="css">
+            .head-example{
+              width: 42px;
+              height: 42px;
+              border-radius: 6px;
+              background: #eee;
+              display: inline-block;
+            }
+          </template>
         </code-box>
 
         <code-box
           title="讨嫌的小红点"
           describe="没有具体的数字。"
-          code='<v-badge :count="30"><a href="#" class="head-example"></a></v-badge>'
         >
-          <v-badge dot>
+          <v-badge :dot="true">
             <i class="anticon anticon-notification"></i>
           </v-badge>
-          <v-badge dot>
+          <v-badge :dot="true">
             <a >一个链接</a>
           </v-badge>
+          <template slot="css">
+            .anticon-notification {
+              width: 16px;
+              height: 16px;
+              line-height: 16px;
+              font-size: 16px;
+            }
+          </template>
         </code-box>
 
-      </div>
 
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <code-box
+          title="独立使用"
+          describe="不包裹任何元素即是独立使用"
+        >
+          <v-badge :count="25"></v-badge>
+          <v-badge :count="4" :styles="{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }"></v-badge>
+          <v-badge :count="109" :styles="{ backgroundColor: '#87d068' }"></v-badge>
+        </code-box>
+
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="大数字"
           describe="超过 overflowCount 的会显示为 {overflowCount}+。"
-          code='<v-badge :count="11" :overflow-count="10">
-  <a class="head-example"></a>
-</v-badge>
-<v-badge :count="1000" :overflow-count="999">
-  <a class="head-example"></a>
-</v-badge>'
         >
           <v-badge :count="11" :overflow-count="10">
             <a class="head-example"></a>
@@ -63,24 +81,20 @@
           <v-badge :count="1000" :overflow-count="999">
             <a class="head-example"></a>
           </v-badge>
+          <template slot="css">
+            .head-example{
+              width: 42px;
+              height: 42px;
+              border-radius: 6px;
+              background: #eee;
+              display: inline-block;
+            }
+          </template>
         </code-box>
 
         <code-box
           title="动态"
           describe="展示动态变化的效果。"
-          code='<v-badge :count="num">
-  <a class="head-example"></a>
-</v-badge>
-<v-badge dot :show="show">
-  <a class="head-example"></a>
-</v-badge>
-<div style="margin-top: 10px;">
-  <div class="ant-btn-group">
-    <button type="button" class="ant-btn ant-btn-ghost" @click="num--"><i class="anticon anticon-minus" ></i></button>
-    <button type="button" class="ant-btn ant-btn-ghost" @click="num++"><i class="anticon anticon-plus"></i></button>
-  </div>
-  <button type="button" class="ant-btn ant-btn-ghost" style="margin-left: 8px;" @click="show = !show"><span>切换红点显隐</span></button>
-</div>'
         >
           <v-badge :count="num">
             <a class="head-example"></a>
@@ -95,24 +109,38 @@
             </div>
             <button type="button" class="ant-btn ant-btn-ghost" style="margin-left: 8px;" @click="show = !show"><span>切换红点显隐</span></button>
           </div>
+          <template slot="js">
+          export default {
+            data: function() {
+              return {
+                show: true,
+                num: 5
+              }
+            },
+            methods: {
+              reduce(){
+                if (this.num < 0) {
+                  this.num = 0
+                }else{
+                  this.num --
+                }
+              }
+            }
+          }
+          </template>
+          <template slot="css">
+            .head-example{
+              width: 42px;
+              height: 42px;
+              border-radius: 6px;
+              background: #eee;
+              display: inline-block;
+            }
+          </template>
         </code-box>
 
-      </div>
-
-      <div class="ant-col-lg-24 code-boxes-col-2-1">
-
-        <code-box
-          title="独立使用"
-          describe="不包裹任何元素即是独立使用"
-          :code="code"
-        >
-          <v-badge :count="25"></v-badge>
-          <v-badge :count="4" :styles="{ backgroundColor: '#fff', color: '#999', borderColor: '#d9d9d9' }"></v-badge>
-          <v-badge :count="109" :styles="{ backgroundColor: '#87d068' }"></v-badge>
-        </code-box>
-
-      </div>
-    </div>
+    </v-col>
+    </v-row>
 
     <api-table
       :apis='apis'
@@ -123,17 +151,12 @@
 </template>
 
 <script>
-
-import vBadge from '../../components/badge'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
 
 export default {
   data: function () {
     return {
-      onClose: function() {
-          console.log(this);
-      },
       show: true,
       num: 5,
       apis: [{
@@ -160,14 +183,6 @@ export default {
       ]
     }
   },
-  computed: {
-    code: function () {
-      var str = ["<v-badge :count=\"25\"></v-badge>",
-                  "<v-badge :count=\"4\" :styles=\"{ backgroundColor: \'#fff\', color: \'#999\', borderColor: \'#d9d9d9\' }\"></v-badge>",
-                  "<v-badge :count=\"109\" :styles=\"{ backgroundColor: \'#87d068\' }\"></v-badge>"].join("");
-      return str
-    }
-  },
   methods: {
     reduce(){
       if (this.num < 0) {
@@ -178,7 +193,6 @@ export default {
     }
   },
   components: {
-    vBadge,
     codeBox,
     apiTable
   }

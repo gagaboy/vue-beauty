@@ -16,9 +16,8 @@
       <h2>组件演示</h2>
     </section>
 
-    <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+    <v-Row :gutter="16">
+      <v-Col span="12">
 
         <code-box
           title="默认"
@@ -63,6 +62,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -96,6 +109,22 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false,
+                  labelCol : { span: 6 },
+                  wrapperCol: { span: 14 }
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -156,10 +185,23 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
-      </div>
-
-      <div class="ant-col-lg-12 code-boxes-col-2-1">
+      </v-col>
+      <v-Col span="12">
 
         <code-box
           title="进场和离场"
@@ -187,6 +229,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -217,6 +273,20 @@
           <p class="buttons">
             <v-button type="primary" @click="_handleClick">切换</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false;
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                }
+              }
+            }
+          </template>
         </code-box>
 
         <code-box
@@ -240,10 +310,32 @@
             <v-button @click="_handleAdd" style="margin-left: 10px">添加</v-button>
             <v-button @click="_handleRemove" style="margin-left: 10px">删除</v-button>
           </p>
+          <template slot="js">
+            export default{
+              data:function(){
+                return {
+                  show :false,
+                  items: ['1', '2', '3'],
+                }
+              },
+              methods:{
+                _handleClick :function(){
+                  this.show = !this.show;
+                },
+                _handleAdd () {
+                  const len = this.items.length + 1;
+                  this.items.push(`${len}`);
+                },
+                _handleRemove () {
+                  this.items.pop();
+                }
+              }
+            }
+          </template>
         </code-box>
 
-      </div>
-    </div>
+      </v-col>
+    </v-row>
     <section class="markdown">
         <h3>API</h3>
         <p>元素依次进场</p>
@@ -268,16 +360,8 @@
 </template>
 
 <script>
-
-import vQueueAnim from '../../components/queueAnim'
-import vForm from '../../components/form'
-import vInput from '../../components/input'
-import vRadio from '../../components/radio'
-import vButton from '../../components/button'
 import codeBox from '../components/codeBox'
 import apiTable from '../components/apiTable'
-let vFormItem = vForm.Item
-let vRadioGroup = vRadio.Group
 
 export default {
   data: function () {
@@ -345,13 +429,6 @@ export default {
     }
   },
   components: {
-    vQueueAnim,
-    vForm,
-    vRadio,
-    vRadioGroup,
-    vFormItem,
-    vInput,
-    vButton,
     codeBox,
     apiTable
   },

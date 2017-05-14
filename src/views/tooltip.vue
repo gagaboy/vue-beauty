@@ -14,25 +14,42 @@
             <h2>组件演示</h2>
         </section>
 
-        <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+        <v-Row :gutter="16">
+            <v-Col span="12">
                 <code-box
                         title="tooltip"
                         describe="tooltip指令使用很简单,v-tooltip='msg'即可.">
                     <v-button type='success' v-tooltip='msg'>默认</v-button>
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
-            </div>
-
-            <div class="ant-col-lg-12 code-boxes-col-2-1">
+            </v-col>
+            <v-Col span="12">
                 <code-box
                         title="tooltip-触发事件"
                         describe="如果需要指定触发事件,使用v-tooltip:hover='msg'或者v-tooltip:focus='msg'">
                     <v-button type='success' v-tooltip:hover.top='msg'>hover触发</v-button>
                     <input type="text" v-tooltip:focus.top='msg1' placeholder="focus触发">
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                    msg1: '明月几时有'
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
-            </div>
-
-            <div class="ant-col-lg-24 code-boxes-col-2-1">
+            </v-col>
+            <v-Col>
                 <code-box
                         title="tooltip-显示位置"
                         describe="可以使用修饰符指定显示位置,如v-tooltip:hover.right='msg1',支持8种位置">
@@ -44,9 +61,20 @@
                     <a href="###" v-tooltip:hover.topRight='msg1'>topRight</a>
                     <v-button type='success' v-tooltip:hover.bottomLeft='msg'>bottomLeft</v-button>
                     <a href="###" v-tooltip:hover.bottomRight='msg1'>bottomRight</a>
+
+                    <template slot="js">
+                        export default{
+                            data :function(){
+                                return {
+                                    msg: '<em>hello world</em>',
+                                    msg1: '明月几时有'
+                                }
+                            }
+                        }
+                    </template>
                 </code-box>
-            </div>
-        </div>
+            </v-col>
+        </v-row>
 
         <api-table
                 :apis='apis'
@@ -57,11 +85,8 @@
 </template>
 
 <script>
-
-    import vButton from '../../components/button'
     import codeBox from '../components/codeBox'
     import apiTable from '../components/apiTable'
-    import tooltip from '../../directive/tooltip'
 
     export default {
         data: function () {
@@ -85,13 +110,8 @@
             }
         },
         components: {
-            vButton,
-            vButtonGroup: vButton.Group,
             codeBox,
             apiTable
-        },
-        directive:{
-            tooltip:tooltip
         }
     }
 </script>
